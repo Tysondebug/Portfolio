@@ -1,1 +1,1485 @@
-# Portfolio
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Tyson_Owner Team • Hack | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-pink: #ff006e;
+            --neon-cyan: #00f5ff;
+            --neon-purple: #b300ff;
+            --neon-green: #00ff88;
+            --neon-yellow: #ffe600;
+            --neon-orange: #ff6600;
+            --dark-bg: #0a0a12;
+            --dark-card: rgba(16, 16, 35, 0.85);
+            --glass-border: rgba(0, 245, 255, 0.15);
+            --text-primary: #f0f0ff;
+            --text-secondary: #b0b0d0;
+            --shadow-glow: 0 0 30px rgba(0, 245, 255, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-canvas .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.25;
+            animation: orbFloat 20s ease-in-out infinite alternate;
+        }
+
+        .bg-canvas .orb:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: var(--neon-pink);
+            top: -10%;
+            left: -20%;
+            animation-duration: 25s;
+        }
+
+        .bg-canvas .orb:nth-child(2) {
+            width: 350px;
+            height: 350px;
+            background: var(--neon-cyan);
+            bottom: -10%;
+            right: -20%;
+            animation-duration: 20s;
+            animation-delay: 3s;
+        }
+
+        .bg-canvas .orb:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: var(--neon-purple);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 30s;
+            animation-delay: 5s;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(40px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 40px) scale(0.9);
+            }
+            100% {
+                transform: translate(30px, -15px) scale(1.05);
+            }
+        }
+
+        /* ===== SCANLINES ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.03) 2px,
+                    rgba(0, 0, 0, 0.03) 4px);
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* ===== GRID OVERLAY ===== */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 245, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 10px 0;
+            background: rgba(10, 10, 18, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 10, 18, 0.97);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+            border-bottom-color: var(--neon-cyan);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .logo-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 18px rgba(0, 245, 255, 0.2);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .logo-img:active {
+            transform: scale(0.95);
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.3px;
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            font-weight: 400;
+            font-size: 0.6rem;
+            -webkit-text-fill-color: var(--text-secondary);
+            background: none;
+            display: block;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== HAMBURGER ===== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 1001;
+            flex-shrink: 0;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== NAV LINKS ===== */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 4px 0;
+            font-family: 'Rajdhani', sans-serif;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            color: #fff !important;
+            padding: 6px 18px !important;
+            border-radius: 30px;
+            font-weight: 700 !important;
+            font-size: 0.75rem !important;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.25);
+            transition: all 0.3s ease !important;
+            white-space: nowrap;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .nav-cta:active {
+            transform: scale(0.95);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 110px 0 50px;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            width: 100%;
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: rgba(0, 245, 255, 0.06);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            margin-bottom: 18px;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.05);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 4s ease-in-out infinite alternate;
+            word-break: break-word;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero h2 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .hero h2 strong {
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 25px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding: 0 4px;
+        }
+
+        .hero-btns {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.3px;
+            min-height: 48px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            box-shadow: 0 0 25px rgba(255, 0, 110, 0.2);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 45px rgba(255, 0, 110, 0.35);
+        }
+
+        .btn-cyan {
+            background: linear-gradient(135deg, var(--neon-cyan), #0099ff);
+            box-shadow: 0 0 25px rgba(0, 245, 255, 0.15);
+        }
+
+        .btn-cyan:hover {
+            box-shadow: 0 0 45px rgba(0, 245, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.03);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 245, 255, 0.06);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.1);
+        }
+
+        .btn-glow {
+            animation: pulseGlow 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 15px rgba(255, 0, 110, 0.15);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 0, 110, 0.4);
+            }
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .section-title .highlight {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 3px;
+            margin: 12px auto 0;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.15);
+        }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .about-image-wrap {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.04);
+            max-width: 380px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .about-image-wrap img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image-wrap .glow-ring {
+            position: absolute;
+            inset: -3px;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .about-text h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 18px;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        .stat-item {
+            background: var(--dark-card);
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:active {
+            transform: scale(0.97);
+        }
+
+        .stat-item .label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .stat-item .value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 2px;
+        }
+
+        .stat-item .value i {
+            color: var(--neon-cyan);
+            margin-right: 4px;
+        }
+
+        /* ===== SKILLS ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .skill-card {
+            background: var(--dark-card);
+            border-radius: 14px;
+            padding: 22px 16px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .skill-card:active::before {
+            transform: scaleX(1);
+        }
+
+        .skill-card:active {
+            transform: scale(0.97);
+        }
+
+        .skill-card .icon {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skill-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .skill-card p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        /* ===== CHANNELS ===== */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .channel-card {
+            background: var(--dark-card);
+            border-radius: 16px;
+            padding: 24px 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .channel-card:active {
+            transform: scale(0.98);
+        }
+
+        .channel-card .ch-icon {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .channel-card.trading .ch-icon {
+            color: var(--neon-yellow);
+        }
+        .channel-card.src .ch-icon {
+            color: var(--neon-cyan);
+        }
+        .channel-card.hacking .ch-icon {
+            color: var(--neon-green);
+        }
+        .channel-card.gaming .ch-icon {
+            color: var(--neon-orange);
+        }
+
+        .channel-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .channel-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .channel-card .btn-sm {
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+            color: #fff;
+            min-height: 42px;
+            touch-action: manipulation;
+        }
+
+        .channel-card .btn-sm:active {
+            transform: scale(0.95);
+        }
+
+        .channel-card.trading .btn-sm {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
+        }
+        .channel-card.src .btn-sm {
+            background: linear-gradient(135deg, #00b4db, #0083b0);
+            box-shadow: 0 0 15px rgba(0, 180, 219, 0.15);
+        }
+        .channel-card.hacking .btn-sm {
+            background: linear-gradient(135deg, #00b09b, #96c93d);
+            box-shadow: 0 0 15px rgba(0, 176, 155, 0.15);
+        }
+        .channel-card.gaming .btn-sm {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            box-shadow: 0 0 15px rgba(255, 65, 108, 0.15);
+        }
+
+        /* ===== HACK BUY SECTION ===== */
+        .hack-buy {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.05), rgba(0, 245, 255, 0.03));
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 32px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+
+        .hack-buy::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 245, 255, 0.02), transparent, rgba(255, 0, 110, 0.02), transparent);
+            animation: spin 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hack-buy .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hack-buy .badge-icon {
+            font-size: 2.6rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .hack-buy h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--neon-yellow), var(--neon-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hack-buy p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 500px;
+            margin: 0 auto 18px;
+            line-height: 1.6;
+        }
+
+        .hack-buy .btn-buy {
+            background: linear-gradient(135deg, var(--neon-yellow), var(--neon-orange));
+            color: #0a0a12;
+            font-weight: 800;
+            padding: 14px 28px;
+            font-size: 1rem;
+            box-shadow: 0 0 30px rgba(255, 230, 0, 0.12);
+            min-height: 50px;
+        }
+
+        .hack-buy .btn-buy:active {
+            transform: scale(0.96);
+        }
+
+        .hack-buy .bot-tag {
+            margin-top: 14px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .hack-buy .bot-tag strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .hack-buy .bot-tag i {
+            color: var(--neon-cyan);
+            margin-right: 4px;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-wrap {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--dark-card);
+            border-radius: 16px;
+            padding: 28px 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:active {
+            transform: scale(0.98);
+        }
+
+        .contact-card .c-icon {
+            font-size: 2.2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+
+        .contact-card .handle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.3px;
+            margin: 6px 0 14px;
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 30px;
+            background: rgba(0, 245, 255, 0.05);
+            border: 1px solid rgba(0, 245, 255, 0.08);
+            word-break: break-all;
+        }
+
+        .contact-card .btn-sm {
+            padding: 10px 24px;
+            font-size: 0.85rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #fff;
+            background: linear-gradient(135deg, var(--neon-cyan), #0099ff);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.12);
+            transition: all 0.25s ease;
+            min-height: 42px;
+            touch-action: manipulation;
+        }
+
+        .contact-card .btn-sm:active {
+            transform: scale(0.95);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 30px 0 20px;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 20px;
+            text-align: center;
+            background: rgba(10, 10, 18, 0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        footer .credit {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        footer .credit strong {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        footer .credit i {
+            color: var(--neon-pink);
+            margin: 0 3px;
+        }
+
+        footer .copy {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            margin-top: 6px;
+        }
+
+        /* ============================================================ */
+        /* ===== RESPONSIVE — PHONE FIRST (already default) ===== */
+        /* ============================================================ */
+
+        /* Small phones (320px - 400px) */
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero h2 {
+                font-size: 1.1rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+            }
+            .hero-badge {
+                font-size: 0.6rem;
+                padding: 3px 12px;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .btn {
+                font-size: 0.8rem;
+                padding: 10px 18px;
+                min-height: 42px;
+            }
+            .skill-card {
+                padding: 16px 12px;
+            }
+            .skill-card .icon {
+                font-size: 1.8rem;
+            }
+            .skill-card h3 {
+                font-size: 0.9rem;
+            }
+            .skill-card p {
+                font-size: 0.7rem;
+            }
+            .hack-buy h2 {
+                font-size: 1.2rem;
+            }
+            .hack-buy .btn-buy {
+                font-size: 0.85rem;
+                padding: 12px 20px;
+                min-height: 44px;
+            }
+            .channel-card {
+                padding: 18px 14px;
+            }
+            .channel-card h3 {
+                font-size: 1.1rem;
+            }
+            .contact-card {
+                padding: 22px 16px;
+            }
+            .logo-text {
+                font-size: 0.8rem;
+            }
+            .logo-img {
+                width: 32px;
+                height: 32px;
+            }
+            .nav-cta {
+                font-size: 0.65rem !important;
+                padding: 4px 12px !important;
+            }
+        }
+
+        /* Tablets & larger phones (401px - 768px) */
+        @media (min-width: 401px) and (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .channels-grid {
+                max-width: 480px;
+            }
+            .contact-wrap {
+                max-width: 480px;
+            }
+        }
+
+        /* Desktop & tablet landscape (769px+) */
+        @media (min-width: 769px) {
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+            .about-image-wrap {
+                max-width: 100%;
+            }
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            .channels-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 800px;
+                gap: 20px;
+            }
+            .contact-wrap {
+                grid-template-columns: 1fr 1fr;
+                max-width: 700px;
+                gap: 30px;
+            }
+            .hero h1 {
+                font-size: 4.2rem;
+            }
+            .section {
+                padding: 80px 0;
+            }
+            .section-title {
+                font-size: 2.6rem;
+                margin-bottom: 60px;
+            }
+            .hack-buy {
+                padding: 50px 40px;
+            }
+            .hack-buy h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1024px) {
+            .channels-grid {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 100%;
+            }
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .hero h1 {
+                font-size: 4.8rem;
+            }
+        }
+
+        /* ===== MOBILE NAV OVERLAY ===== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10, 10, 18, 0.98);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                flex-direction: column;
+                padding: 80px 30px 40px;
+                gap: 20px;
+                border-bottom: none;
+                transform: translateX(100%);
+                transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: none;
+                overflow-y: auto;
+                justify-content: flex-start;
+                align-items: center;
+                z-index: 999;
+            }
+
+            .nav-links.open {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 10px 0;
+                color: var(--text-primary);
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .nav-cta {
+                font-size: 1rem !important;
+                padding: 12px 30px !important;
+                margin-top: 8px;
+                width: auto;
+                background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            }
+
+            /* Close button via hamburger */
+            .hamburger.active {
+                position: fixed;
+                top: 14px;
+                right: 16px;
+                z-index: 1001;
+            }
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--neon-cyan), var(--neon-pink));
+            border-radius: 10px;
+        }
+
+        /* ===== UTILITY ===== */
+        .text-center {
+            text-align: center;
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .w-full {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ANIMATED BG ===== -->
+    <div class="bg-canvas">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+    <div class="grid-overlay"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#home" class="logo-wrap">
+                <img src="https://www.image2url.com/r2/default/images/1782060674321-f50f86c8-f27d-41cf-b670-8910cd19d5b1.jpg" alt="Tyson_Owner" class="logo-img" loading="lazy" />
+                <div class="logo-text">
+                    Tyson_Owner Team
+                    <span>• Hack</span>
+                </div>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#channels">Channels</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://tyson-portfolio.github.io/Payment-Getaway/" target="_blank" class="nav-cta"><i class="fas fa-bolt"></i> Buy Hack</a></li>
+            </ul>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-badge"><i class="fas fa-shield-alt"></i> @TYSON_OWNER • Elite Developer</div>
+            <h1>TYSON_OWNER<br />TEAM • HACK</h1>
+            <h2>Full Stack Developer &amp; <strong>Security Specialist</strong></h2>
+            <p>Building next‑gen solutions with neon precision. Specialized in Telegram bots, automation, gaming mods, and ethical hacking tools. Push the limits with us.</p>
+            <div class="hero-btns">
+                <a href="#hack-buy-section" class="btn btn-primary btn-glow"><i class="fas fa-bolt"></i> 🔻 Hack Buy Direct</a>
+                <a href="#channels" class="btn btn-cyan"><i class="fab fa-telegram"></i> Explore</a>
+                <a href="#about" class="btn btn-outline"><i class="fas fa-user"></i> About</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">About <span class="highlight">Me</span></h2>
+            <div class="about-grid">
+                <div class="about-image-wrap">
+                    <div class="glow-ring"></div>
+                    <img src="https://images.unsplash.com/photo-1536104968055-4d61aa56f46a?ixlib=rb-4.0.3&auto=format&fit=crop&w=880&q=80" alt="Tyson Developer" loading="lazy" />
+                </div>
+                <div class="about-text">
+                    <h3>Neon Code Architect</h3>
+                    <p>I'm a passionate developer from India with a B.Tech degree and 26 years of innovation. I craft secure, high‑performance solutions for web, Telegram, and gaming ecosystems. My mission: to merge creativity with technology.</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="label"><i class="fas fa-map-pin"></i> Country</div>
+                            <div class="value">🇮🇳 India</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="label"><i class="fas fa-calendar"></i> Age</div>
+                            <div class="value">26</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="label"><i class="fas fa-graduation-cap"></i> Education</div>
+                            <div class="value">B.Tech</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="label"><i class="fas fa-heart"></i> Hobbies</div>
+                            <div class="value">Coding · Gaming · Design</div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Connect</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section class="section" id="skills">
+        <div class="container">
+            <h2 class="section-title">My <span class="highlight">Skills</span></h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="icon"><i class="fab fa-php"></i></div>
+                    <h3>PHP &amp; Python</h3>
+                    <p>Advanced bots &amp; automation</p>
+                </div>
+                <div class="skill-card">
+                    <div class="icon"><i class="fab fa-html5"></i></div>
+                    <h3>HTML, CSS, JS</h3>
+                    <p>Responsive front‑end</p>
+                </div>
+                <div class="skill-card">
+                    <div class="icon"><i class="fab fa-telegram"></i></div>
+                    <h3>Telegram Bots</h3>
+                    <p>Feature‑rich automation</p>
+                </div>
+                <div class="skill-card">
+                    <div class="icon"><i class="fas fa-paint-brush"></i></div>
+                    <h3>UI/UX Design</h3>
+                    <p>Neon aesthetics</p>
+                </div>
+                <div class="skill-card">
+                    <div class="icon"><i class="fas fa-robot"></i></div>
+                    <h3>Automation</h3>
+                    <p>Complex pipelines</p>
+                </div>
+                <div class="skill-card">
+                    <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Security</h3>
+                    <p>Ethical hacking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CHANNELS ===== -->
+    <section class="section" id="channels">
+        <div class="container">
+            <h2 class="section-title">My <span class="highlight">Channels</span></h2>
+            <div class="channels-grid">
+                <!-- Trading -->
+                <div class="channel-card trading">
+                    <div class="ch-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Trading Channel</h3>
+                    <p>Advanced strategies &amp; financial hacking.</p>
+                    <a href="https://t.me/TYSON_OK_WIN_HACK" target="_blank" class="btn-sm"><i class="fab fa-telegram"></i> Join</a>
+                </div>
+                <!-- Source Code -->
+                <div class="channel-card src">
+                    <div class="ch-icon"><i class="fas fa-code"></i></div>
+                    <h3>Source Code</h3>
+                    <p>Premium dev resources &amp; tools.</p>
+                    <a href="https://t.me/nobita_src" target="_blank" class="btn-sm"><i class="fab fa-telegram"></i> Join</a>
+                </div>
+                <!-- Hacking -->
+                <div class="channel-card hacking">
+                    <div class="ch-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Hacking Channel</h3>
+                    <p>Ethical hacking &amp; cybersecurity.</p>
+                    <a href="https://t.me/+fCz8oujNthtlMzJl" target="_blank" class="btn-sm"><i class="fab fa-telegram"></i> Join</a>
+                </div>
+                <!-- Gaming -->
+                <div class="channel-card gaming">
+                    <div class="ch-icon"><i class="fas fa-gamepad"></i></div>
+                    <h3>Gaming Channel</h3>
+                    <p>BGMI &amp; PUBG Lite mods &amp; cheats.</p>
+                    <a href="https://t.me/+O60hs11qayAwMzFl" target="_blank" class="btn-sm"><i class="fab fa-telegram"></i> Join</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HACK BUY SECTION ===== -->
+    <section class="section" id="hack-buy-section">
+        <div class="container">
+            <div class="hack-buy">
+                <div class="content">
+                    <span class="badge-icon">🔻</span>
+                    <h2>Hack Buy Direct From Developer 🔺</h2>
+                    <p>Get premium hacks, tools, and bots directly from <strong>@tyson_owner</strong>. 1 Level Win 🏆🎰 — trust the source.</p>
+                    <a href="https://tyson-portfolio.github.io/Payment-Getaway/" target="_blank" class="btn btn-buy"><i class="fas fa-rocket"></i> Buy Now — 1 Level Win</a>
+                    <div class="bot-tag">
+                        <i class="fab fa-telegram"></i> Bot: <strong>@tyson_prediction_hack_bot</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact <span class="highlight">Me</span></h2>
+            <div class="contact-wrap">
+                <div class="contact-card">
+                    <div class="c-icon"><i class="fas fa-user-secret"></i></div>
+                    <h3>Project Owner</h3>
+                    <p style="color:var(--text-secondary); font-size:0.9rem;">Business &amp; support</p>
+                    <div class="handle">@tyson_owner</div>
+                    <a href="https://t.me/tyson_owner" target="_blank" class="btn-sm"><i class="fab fa-telegram"></i> Message</a>
+                </div>
+                <div class="contact-card">
+                    <div class="c-icon"><i class="fas fa-robot"></i></div>
+                    <h3>Hack Bot</h3>
+                    <p style="color:var(--text-secondary); font-size:0.9rem;">Prediction &amp; tools</p>
+                    <div class="handle">@tyson_prediction_hack_bot</div>
+                    <a href="https://t.me/tyson_prediction_hack_bot" target="_blank" class="btn-sm"><i class="fab fa-telegram"></i> Try Bot</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <p class="credit">
+                <i class="fas fa-code"></i> Made with <i class="fas fa-heart"></i> by <strong>@tyson_owner</strong> &bull; Tyson_Owner Team • Hack
+            </p>
+            <p class="copy">© 2026 — All rights reserved. Neon precision.</p>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        // === Hamburger ===
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+            document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+        });
+
+        // Close menu on link click (mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu on outside tap (mobile)
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('open')) {
+                const isNav = navLinks.contains(e.target);
+                const isHamburger = hamburger.contains(e.target);
+                if (!isNav && !isHamburger) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+
+        // === Header scroll effect ===
+        const header = document.getElementById('header');
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 60) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            lastScroll = currentScroll;
+        }, { passive: true });
+
+        // === Smooth scroll for anchor links ===
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    const offset = 70;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // === Dynamic glow on hero badge ===
+        const badge = document.querySelector('.hero-badge');
+        if (badge) {
+            setInterval(() => {
+                const glow = `0 0 ${12 + Math.random() * 20}px rgba(0, 245, 255, ${0.08 + Math.random() * 0.15})`;
+                badge.style.boxShadow = glow;
+            }, 1800);
+        }
+
+        console.log('🔥 Tyson_Owner Team • Hack — Fully responsive neon portfolio loaded.');
+    </script>
+
+</body>
+</html>
